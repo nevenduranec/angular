@@ -1,0 +1,35 @@
+<h1>web.burza.NOMZ</h1>
+
+
+
+<form>
+    <input ng-model="name" placeholder="your name" />
+    <input ng-model="nom" placeholder="your nom" />
+    <input ng-model="price" placeholder="price" />
+    <button ng-click="addNom()">Add</button>
+</form>
+
+
+
+
+
+
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Nom</th>
+        <th>Price</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="thing in nomz">
+            <td>{{ thing.name }}</td>
+            <td>{{ thing.nom }}</td>
+            <td>{{ thing.price }}</td>
+        </tr>
+    </tbody>
+</table>
+<ul class="nav nav-pills pull-right">
+
+    <li ng-cloak ng-show-auth="login" ng-controller="LoginController"><a href="#" ng-click="logout()">Log Out</a></li>
+    <li ng-cloak ng-show-auth="['logout','error']"><a href="#/login">Log In</a></li>
+</ul>
