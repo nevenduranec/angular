@@ -2,7 +2,7 @@
 
 
 
-<form name="form">
+<form name="form" ng-submit="addNom(form)" ng-show="auth.user">
     <p>
         <input ng-model="name" name="name" placeholder="your name" required />
         <span class="error" ng-show="form.name.$error.required">Required!</span>
@@ -15,7 +15,7 @@
         <input type="number" name="price" ng-model="price" placeholder="price" min="1" required /> kn
         <span class="error" ng-show="form.price.$error.required">Required, number only!</span>
     </p>
-    <button ng-click="addNom()">Add</button>
+    <button type="submit">Add</button>
 </form>
 
 
@@ -31,11 +31,26 @@
         <th>Time</th>
     </thead>
     <tbody>
-        <tr ng-repeat="thing in nomz | orderBy:'thing.date'">
-            <td>{{ thing.name }}</td>
-            <td>{{ thing.nom }}</td>
-            <td>{{ thing.price }}</td>
-            <td>{{ thing.date | date:'dd.MM.yy @ HH:ss' }}</td>
+        <tr ng-repeat="thing in nomz | orderByPriority | orderBy:'-date'">
+            <td><span editable-text="thing.name" e-name="name" e-form="rowform">{{ thing.name }}</span></td>
+            <td><span editable-text="thing.nom" e-name="nom" e-form="rowform">{{ thing.nom }}</span></td>
+            <td><span editable-text="thing.price" e-name="price" e-form="rowform">{{ thing.price }}</span></td>
+            <td>{{ thing.date | date:'HH:ss' }}</td>
+            <td ng-show="auth.user && auth.user.id == thing.userID">
+
+                <a href="#" ng-click="removeNom(thing.$id)">remove</a>
+                <a ng-click="rowform.$show()">edit</a>
+
+                <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
+                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="updateNom(thing.$id)">
+                    save
+                    </button>
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                    cancel
+                    </button>
+                </form>
+
+            </td>
         </tr>
     </tbody>
     <tfoot>
@@ -44,3 +59,8 @@
         </tr>
     </tfoot>
 </table>
+
+
+
+<a href="#" ng-click="login('anonymous')" ng-show="!auth.user">login</a>
+<a href="#" ng-click="logout()" ng-show="auth.user">logout</a>

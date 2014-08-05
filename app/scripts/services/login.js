@@ -14,6 +14,7 @@ angular.module('angularfire.login', ['firebase', 'angularfire.firebase'])
     return {
       init: function() {
         auth = $firebaseSimpleLogin(firebaseRef());
+        $rootScope.auth = auth;
         return auth;
       },
 

@@ -18,7 +18,9 @@ angular
         'ngTouch',
         'restangular',
         'firebase',
-        'angularfire.firebase'
+        'angularfire.firebase',
+        'angularfire.login',
+        'xeditable'
     ])
     .config(function ($routeProvider) {
 

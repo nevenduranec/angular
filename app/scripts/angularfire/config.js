@@ -11,7 +11,7 @@ angular.module('angularApp')
   .constant('loginRedirectPath', '/login')
 
   // which login service we're using
-  .constant('loginProviders', 'facebook')
+  .constant('loginProviders', 'anonymous')
 
   // your Firebase URL goes here
   .constant('FBURL', 'https://glaring-fire-2387.firebaseio.com');
