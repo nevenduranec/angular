@@ -2,10 +2,19 @@
 
 
 
-<form>
-    <input ng-model="name" placeholder="your name" />
-    <input ng-model="nom" placeholder="your nom" />
-    <input ng-model="price" placeholder="price" />
+<form name="form">
+    <p>
+        <input ng-model="name" name="name" placeholder="your name" required />
+        <span class="error" ng-show="form.name.$error.required">Required!</span>
+    </p>
+    <p>
+        <input ng-model="nom" name="nom" placeholder="your nom" required />
+        <span class="error" ng-show="form.nom.$error.required">Required!</span>
+    </p>
+    <p>
+        <input type="number" name="price" ng-model="price" placeholder="price" min="1" required /> kn
+        <span class="error" ng-show="form.price.$error.required">Required, number only!</span>
+    </p>
     <button ng-click="addNom()">Add</button>
 </form>
 
@@ -19,17 +28,19 @@
         <th>Name</th>
         <th>Nom</th>
         <th>Price</th>
+        <th>Time</th>
     </thead>
     <tbody>
-        <tr ng-repeat="thing in nomz">
+        <tr ng-repeat="thing in nomz | orderBy:'thing.date'">
             <td>{{ thing.name }}</td>
             <td>{{ thing.nom }}</td>
             <td>{{ thing.price }}</td>
+            <td>{{ thing.date | date:'dd.MM.yy @ HH:ss' }}</td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="4">{{ total | currency: 'HRK' }}</th>
+        </tr>
+    </tfoot>
 </table>
-<ul class="nav nav-pills pull-right">
-
-    <li ng-cloak ng-show-auth="login" ng-controller="LoginController"><a href="#" ng-click="logout()">Log Out</a></li>
-    <li ng-cloak ng-show-auth="['logout','error']"><a href="#/login">Log In</a></li>
-</ul>

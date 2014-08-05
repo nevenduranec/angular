@@ -9,42 +9,23 @@
  */
 angular
 .module('angularApp')
-.controller('MainCtrl', function ($scope, Restangular, $http, $firebase, firebaseRef) {
+.controller('MainCtrl', function ($scope, $http, $firebase, syncData) {
 
-    /*
-    Restangular.setBaseUrl('https://api.mongolab.com/api/1/databases/angularjs/collections');
-    Restangular.setDefaultRequestParams({ apiKey: '4f847ad3e4b08a2eed5f3b54' });
-
-    $scope.test = Restangular.all('projects').getList().$object;
-
-    $scope.test = Restangular.all('projects').one('13').get().then(function(response){
-        console.log(response);
-    });*/
-
-
-    /*
-    $scope.nomz = [];
-
-    $http.get('nomz.json').then(function(data) {
-        $scope.nomz = data.data;
-        console.log(data.data);
-    });
+    $scope.nomz = syncData('nomz');
 
     $scope.addNom = function(){
-        $scope.nomz.push({name: $scope.name, nom: $scope.nom, price: $scope.price});
-        $http.get('save.php').then(function(data) {
-            console.log(data);
-        });
+        var date  = Date.now();
+        $scope.nomz.$add({name: $scope.name, nom: $scope.nom, price: $scope.price, date: date});
     };
-    */
 
-
-    var ref = firebaseRef('nomz');
-    var sync = $firebase(ref);
-    console.log(sync);
-    $scope.nomz = sync.$asObject();
-
-    console.log($scope.nomz);
+    $scope.$watch('nomz', function () {
+        $scope.total = 0;
+        angular.forEach($scope.nomz, function(item){
+            if(item.price){
+                $scope.total += item.price;
+            }
+        });
+    }, true);
 
 
 });

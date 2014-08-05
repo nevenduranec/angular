@@ -18,8 +18,7 @@ angular
         'ngTouch',
         'restangular',
         'firebase',
-        'angularfire.firebase',
-        'angularfire.login'
+        'angularfire.firebase'
     ])
     .config(function ($routeProvider) {
 
@@ -31,11 +30,6 @@ angular
             .when('/about', {
                 templateUrl: 'views/about.html',
                 controller: 'AboutCtrl'
-            })
-            .when('/login', {
-                authRequired: false, // if true, must log in before viewing this page
-                templateUrl: 'views/login.html',
-                controller: 'LoginController'
             })
             .otherwise({
                 redirectTo: '/'
