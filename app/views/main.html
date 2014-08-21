@@ -2,18 +2,30 @@
 
 
 
-<form name="form" ng-submit="addNom(form)" ng-show="auth.user">
+<form name="restaurantForm" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="auth.user && superUser">
     <p>
-        <input ng-model="name" name="name" placeholder="your name" required />
-        <span class="error" ng-show="form.name.$error.required">Required!</span>
+        <input ng-model="restaurantName" name="restaurantName" placeholder="* Name" required />
+        <span class="error" ng-show="restaurantForm.restaurantName.$error.required && (restaurantForm.restaurantName.$dirty || restaurantSubmitted)">Required!</span>
     </p>
     <p>
-        <input ng-model="nom" name="nom" placeholder="your nom" required />
-        <span class="error" ng-show="form.nom.$error.required">Required!</span>
+        <input type="url" ng-model="restaurantURL" name="restaurantURL" placeholder="URL" http-prefix />
+        <span class="error" ng-show="restaurantForm.restaurantURL.$error.url && restaurantSubmitted">Not a valid URL!</span>
+    </p>
+    <button type="submit">Add</button>
+</form>
+
+<form name="form" novalidate ng-submit="addNom(form)" ng-show="auth.user">
+    <p>
+        <input ng-model="name" name="name" placeholder="* your name" required />
+        <span class="error" ng-show="form.name.$error.required && (form.name.$dirty || nomSubmitted)">Required!</span>
     </p>
     <p>
-        <input type="number" name="price" ng-model="price" placeholder="price" min="1" required /> kn
-        <span class="error" ng-show="form.price.$error.required">Required, number only!</span>
+        <input ng-model="nom" name="nom" placeholder="* your nom" required />
+        <span class="error" ng-show="form.nom.$error.required && (form.nom.$dirty || nomSubmitted)">Required!</span>
+    </p>
+    <p>
+        <input type="number" name="price" ng-model="price" placeholder="* price" min="1" required /> kn
+        <span class="error" ng-show="form.price.$error.required && (form.price.$dirty || nomSubmitted)">Required, number only!</span>
     </p>
     <button type="submit">Add</button>
 </form>

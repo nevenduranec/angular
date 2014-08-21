@@ -9,14 +9,17 @@
  */
 angular
 .module('angularApp')
-.controller('MainCtrl', function ($rootScope, $scope, $http, syncData, simpleLogin, $timeout) {
+.controller('MainCtrl', function ($rootScope, $scope, $http, syncData, simpleLogin, $timeout, $location) {
+
+    $scope.superUser = $location.$$search.direktornabave;
 
     var date = new Date(),
         today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 
     //today = '6-8-2014';
 
-    $scope.nomz = syncData(today);
+    $scope.nomz = syncData(today + '/people/');
+    $scope.restaurants = syncData(today + '/restaurants/');
 
     $scope.login = function(service) {
         simpleLogin.login(service, function(err, user) {
@@ -30,6 +33,7 @@ angular
     };
 
     $scope.addNom = function(form){
+        $scope.nomSubmitted = true;
         if(form.$valid){
             var now = Date.now();
             $scope.nomz.$add({name: $scope.name, nom: $scope.nom, price: $scope.price, date: now, userID: $rootScope.auth.user.id});
@@ -37,6 +41,19 @@ angular
             $scope.nom = '';
             $scope.price = '';
             $scope.form.$setPristine();
+            $scope.nomSubmitted = false;
+        }
+    };
+
+    $scope.addRestaurant = function(restaurantForm){
+        $scope.restaurantSubmitted = true;
+        if(restaurantForm.$valid){
+            var now = Date.now();
+            $scope.restaurants.$add({name: $scope.restaurantName, url: $scope.restaurantURL, date: now});
+            $scope.restaurantName = '';
+            $scope.restaurantURL = '';
+            $scope.restaurantForm.$setPristine();
+            $scope.restaurantSubmitted = false;
         }
     };
 
