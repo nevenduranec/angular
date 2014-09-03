@@ -16,10 +16,11 @@ angular
     var date = new Date(),
         today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 
-    //today = '6-8-2014';
+    //today = '6-8-2019';
 
     $scope.nomz = syncData(today + '/people/');
     $scope.restaurants = syncData(today + '/restaurants/');
+
 
     $scope.login = function(service) {
         simpleLogin.login(service, function(err, user) {
@@ -71,9 +72,20 @@ angular
 
     $scope.$watch('nomz', function () {
         $scope.total = 0;
+        $scope.nomzLength = 0;
         angular.forEach($scope.nomz, function(item){
             if(item.price){
+                $scope.nomzLength++;
                 $scope.total += item.price;
+            }
+        });
+    }, true);
+
+    $scope.$watch('restaurants', function () {
+        $scope.restaurantsLength = 0;
+        angular.forEach($scope.restaurants, function(item){
+            if(item.name){
+                $scope.restaurantsLength++;
             }
         });
     }, true);

@@ -2,6 +2,16 @@
 
 
 
+
+<ul ng-if="restaurantsLength">
+    <li ng-repeat="restaurant in restaurants">
+        {{ restaurant.name }}
+    </li>
+</ul>
+
+
+
+
 <form name="restaurantForm" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="auth.user && superUser">
     <p>
         <input ng-model="restaurantName" name="restaurantName" placeholder="* Name" required />
@@ -14,28 +24,9 @@
     <button type="submit">Add</button>
 </form>
 
-<form name="form" novalidate ng-submit="addNom(form)" ng-show="auth.user">
-    <p>
-        <input ng-model="name" name="name" placeholder="* your name" required />
-        <span class="error" ng-show="form.name.$error.required && (form.name.$dirty || nomSubmitted)">Required!</span>
-    </p>
-    <p>
-        <input ng-model="nom" name="nom" placeholder="* your nom" required />
-        <span class="error" ng-show="form.nom.$error.required && (form.nom.$dirty || nomSubmitted)">Required!</span>
-    </p>
-    <p>
-        <input type="number" name="price" ng-model="price" placeholder="* price" min="1" required /> kn
-        <span class="error" ng-show="form.price.$error.required && (form.price.$dirty || nomSubmitted)">Required, number only!</span>
-    </p>
-    <button type="submit">Add</button>
-</form>
 
 
-
-
-
-
-<table>
+<table ng-if="nomzLength">
     <thead>
         <th>Name</th>
         <th>Nom</th>
@@ -76,3 +67,22 @@
 
 <a href="#" ng-click="login('anonymous')" ng-show="!auth.user">login</a>
 <a href="#" ng-click="logout()" ng-show="auth.user">logout</a>
+
+
+
+
+<form name="form" novalidate ng-submit="addNom(form)" ng-show="auth.user">
+    <p>
+        <input ng-model="name" name="name" placeholder="* your name" required />
+        <span class="error" ng-show="form.name.$error.required && (form.name.$dirty || nomSubmitted)">Required!</span>
+    </p>
+    <p>
+        <input ng-model="nom" name="nom" placeholder="* your nom" required />
+        <span class="error" ng-show="form.nom.$error.required && (form.nom.$dirty || nomSubmitted)">Required!</span>
+    </p>
+    <p>
+        <input type="number" name="price" ng-model="price" placeholder="* price" min="1" required /> kn
+        <span class="error" ng-show="form.price.$error.required && (form.price.$dirty || nomSubmitted)">Required, number only!</span>
+    </p>
+    <button type="submit">Add</button>
+</form>
