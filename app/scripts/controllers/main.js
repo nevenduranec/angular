@@ -11,6 +11,8 @@ angular
 .module('angularApp')
 .controller('MainCtrl', function ($rootScope, $scope, $http, syncData, simpleLogin, $timeout, $location) {
 
+    window.skope = $scope;
+
     $scope.superUser = $location.$$search.direktornabave;
 
     var date = new Date(),

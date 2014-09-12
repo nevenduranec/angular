@@ -12,7 +12,7 @@
 
 
 
-<form name="restaurantForm" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="auth.user && superUser">
+<form name="restaurantForm" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="superUser">
     <p>
         <input ng-model="restaurantName" name="restaurantName" placeholder="* Name" required />
         <span class="error" ng-show="restaurantForm.restaurantName.$error.required && (restaurantForm.restaurantName.$dirty || restaurantSubmitted)">Required!</span>
@@ -41,14 +41,14 @@
             <td>{{ thing.date | date:'HH:ss' }}</td>
             <td ng-show="auth.user && auth.user.id == thing.userID">
 
-                <a href="#" ng-click="removeNom(thing.$id)">remove</a>
-                <a ng-click="rowform.$show()">edit</a>
+                <button ng-click="removeNom(thing.$id)" ng-show="!rowform.$visible">remove</button>
+                <button ng-click="rowform.$show()" ng-show="!rowform.$visible">edit</button>
 
-                <form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline">
-                    <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary" ng-click="updateNom(thing.$id)">
+                <form editable-form name="rowform" ng-show="rowform.$visible">
+                    <button type="submit" ng-disabled="rowform.$waiting" ng-click="updateNom(thing.$id)">
                     save
                     </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
                     cancel
                     </button>
                 </form>
@@ -56,7 +56,7 @@
             </td>
         </tr>
     </tbody>
-    <tfoot>
+    <tfoot ng-show="superUser">
         <tr>
             <th colspan="4">{{ total | currency: 'HRK' }}</th>
         </tr>
@@ -65,8 +65,8 @@
 
 
 
-<a href="#" ng-click="login('anonymous')" ng-show="!auth.user">login</a>
-<a href="#" ng-click="logout()" ng-show="auth.user">logout</a>
+<a href="#" ng-click="login('anonymous')" ng-show="!auth.user" class="order">Order your nom!</a>
+<!--a href="#" ng-click="logout()" ng-show="auth.user">logout</a-->
 
 
 
