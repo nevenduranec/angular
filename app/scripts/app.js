@@ -20,7 +20,8 @@ angular
         'firebase',
         'angularfire.firebase',
         'angularfire.login',
-        'xeditable'
+        'xeditable',
+        'simpleLoginTools'
     ])
     .config(function ($routeProvider) {
 

@@ -9,14 +9,21 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower_components/reset-css/reset.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
     <link href='http://fonts.googleapis.com/css?family=Courgette' rel='stylesheet' type='text/css'>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/TweenLite.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/TimelineLite.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/easing/EasePack.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.13.2/plugins/CSSPlugin.min.js"></script>
   </head>
   <body ng-app="angularApp">
+    <div class="wrapper">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -24,7 +31,7 @@
 
       <div ng-view=""></div>
 
-
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -60,13 +67,13 @@
     <script src="bower_components/firebase/firebase.js"></script>
     <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <script src="bower_components/firebase-simple-login/firebase-simple-login.js"></script>
-    <script src="bower_components/observe-js/src/observe.js"></script>
     <script src="bower_components/angularfire/angularfire.js"></script>
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/rem.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>

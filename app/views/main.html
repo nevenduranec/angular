@@ -1,88 +1,143 @@
-<h1>web.burza.NOMZ</h1>
+<div class="container">
+
+    <h1><img src="/images/logo.png" width="958" height="273" alt="web.burza NOMZ" /></h1>
+
+    <div class="content">
+
+        <h2>Today's menu <a ng-show="superUser" ng-click="showEditForm('addRestaurant');" class="addRestaurant-btn"><span class="fa fa-plus-circle"></span></a></h2>
+
+        <ul ng-if="restaurantsLength" class="restaurants">
+            <li ng-repeat="restaurant in restaurants | orderByPriority | orderBy:'-date'">
+
+                <span class="fa fa-circle"></span>
+                <span ng-if="restaurant.url"><a href="{{ restaurant.url }}">{{ restaurant.name }}</a></span>
+                <span ng-if="restaurant.name && !restaurant.url">{{ restaurant.name }}</span>
+
+
+                <div ng-show="superUser">
+
+                    <a class="action remove" title="Remove this restaurant" ng-click="removeRestaurant(restaurant.$id)" ng-show="!restaurantRow.$visible"><span class="fa fa-times-circle"></span></a>
+                    <a class="action edit" title="Edit this restaurant" ng-click="restaurantRow.$show();" ng-show="!restaurantRow.$visible"><span class="fa fa-pencil-square-o"></span></a>
+
+                    <form editable-form name="restaurantRow" class="main-edit-form" id="{{ restaurant.$id }}" onshow="showEditForm(restaurant.$id);" oncancel="hideEditForm(restaurant.$id);" onaftersave="hideEditForm(restaurant.$id);">
+
+                        <p class="edit-title">Edit this restaurant</p>
+
+                        <span editable-text="restaurant.name" e-name="restaurantName" e-form="restaurantRow"></span>
+                        <span editable-text="restaurant.url" e-name="restaurantURL" e-form="restaurantRow"></span>
+
+                        <button type="submit" ng-disabled="restaurantRow.$waiting" ng-click="updateRestaurant(restaurant.$id)" class="save">
+                            <span class="fa fa-check"></span> save
+                        </button>
+                        <button type="button" ng-disabled="restaurantRow.$waiting" ng-click="restaurantRow.$cancel()" class="cancel">
+                            <span class="fa fa-remove"></span> cancel
+                        </button>
+
+                    </form>
+                </div>
+
+            </li>
+        </ul>
+
+
+        <form name="restaurantForm" class="main-edit-form" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="superUser" id="addRestaurant">
+            <p class="edit-title">Add restaurant</p>
+            <p>
+                <input ng-model="restaurantName" name="restaurantName" placeholder="* Name" required />
+                <span class="error" ng-show="restaurantForm.restaurantName.$error.required && (restaurantForm.restaurantName.$dirty || restaurantSubmitted)">Required!</span>
+            </p>
+            <p>
+                <input type="url" ng-model="restaurantURL" name="restaurantURL" placeholder="URL" http-prefix />
+                <span class="error" ng-show="restaurantForm.restaurantURL.$error.url && restaurantSubmitted">Not a valid URL!</span>
+            </p>
+            <button type="submit" class="save"><span class="fa fa-check"></span> Add</button>
+            <button type="button" class="cancel" ng-click="hideEditForm('addRestaurant');"><span class="fa fa-remove"></span> Cancel</button>
+        </form>
 
 
 
 
-<ul ng-if="restaurantsLength">
-    <li ng-repeat="restaurant in restaurants">
-        {{ restaurant.name }}
-    </li>
-</ul>
 
 
 
-
-<form name="restaurantForm" novalidate ng-submit="addRestaurant(restaurantForm)" ng-show="superUser">
-    <p>
-        <input ng-model="restaurantName" name="restaurantName" placeholder="* Name" required />
-        <span class="error" ng-show="restaurantForm.restaurantName.$error.required && (restaurantForm.restaurantName.$dirty || restaurantSubmitted)">Required!</span>
-    </p>
-    <p>
-        <input type="url" ng-model="restaurantURL" name="restaurantURL" placeholder="URL" http-prefix />
-        <span class="error" ng-show="restaurantForm.restaurantURL.$error.url && restaurantSubmitted">Not a valid URL!</span>
-    </p>
-    <button type="submit">Add</button>
-</form>
+        <h2>Orders <a ng-show="auth.user" ng-click="showEditForm('addNom');" class="addNom-btn"><span class="fa fa-plus-circle"></span> Order now!</a></h2>
 
 
+        <table ng-if="nomzLength" class="orders">
+            <thead>
+                <th>Name</th>
+                <th class="nom">Nom</th>
+                <th class="txtRight">Price</th>
+                <th class="txtRight">Time</th>
+                <th ng-show="superUser" class="txtRight">Paid?</th>
+            </thead>
+            <tbody>
+                <tr ng-repeat="thing in nomz | orderByPriority | orderBy:'-date'">
+                    <td>
+                        {{ thing.name }}
+                        <div ng-show="auth.user && auth.user.id == thing.userID">
 
-<table ng-if="nomzLength">
-    <thead>
-        <th>Name</th>
-        <th>Nom</th>
-        <th>Price</th>
-        <th>Time</th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="thing in nomz | orderByPriority | orderBy:'-date'">
-            <td><span editable-text="thing.name" e-name="name" e-form="rowform">{{ thing.name }}</span></td>
-            <td><span editable-text="thing.nom" e-name="nom" e-form="rowform">{{ thing.nom }}</span></td>
-            <td><span editable-text="thing.price" e-name="price" e-form="rowform">{{ thing.price }}</span></td>
-            <td>{{ thing.date | date:'HH:ss' }}</td>
-            <td ng-show="auth.user && auth.user.id == thing.userID">
+                            <p><a class="action remove" ng-click="removeNom(thing.$id)" ng-show="!rowform.$visible"><span class="fa fa-times-circle"></span></a>
+                            <a class="action edit" ng-click="rowform.$show()" ng-show="!rowform.$visible"><span class="fa fa-pencil-square-o"></span></a></p>
 
-                <button ng-click="removeNom(thing.$id)" ng-show="!rowform.$visible">remove</button>
-                <button ng-click="rowform.$show()" ng-show="!rowform.$visible">edit</button>
+                            <form editable-form name="rowform" class="main-edit-form" id="{{ thing.$id }}" onshow="showEditForm(thing.$id);" oncancel="hideEditForm(thing.$id);" onaftersave="hideEditForm(thing.$id);">
 
-                <form editable-form name="rowform" ng-show="rowform.$visible">
-                    <button type="submit" ng-disabled="rowform.$waiting" ng-click="updateNom(thing.$id)">
-                    save
-                    </button>
-                    <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
-                    cancel
-                    </button>
-                </form>
+                                <p class="edit-title">Edit your order</p>
 
-            </td>
-        </tr>
-    </tbody>
-    <tfoot ng-show="superUser">
-        <tr>
-            <th colspan="4">{{ total | currency: 'HRK' }}</th>
-        </tr>
-    </tfoot>
-</table>
+                                <span editable-text="thing.name" e-name="name" e-form="rowform"></span>
+                                <span editable-text="thing.nom" e-name="nom" e-form="rowform"></span>
+                                <span editable-text="thing.price" e-name="price" e-form="rowform"></span>
 
+                                <button type="submit" class="save" ng-disabled="rowform.$waiting" ng-click="updateNom(thing.$id)">
+                                    <span class="fa fa-check"></span> save
+                                </button>
+                                <button type="button" class="cancel" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()">
+                                    <span class="fa fa-remove"></span> cancel
+                                </button>
+                            </form>
 
-
-<a href="#" ng-click="login('anonymous')" ng-show="!auth.user" class="order">Order your nom!</a>
-<!--a href="#" ng-click="logout()" ng-show="auth.user">logout</a-->
+                        </div>
+                    </td>
+                    <td class="nom">{{ thing.nom | lowercase }}</td>
+                    <td class="txtRight">{{ thing.price| currency: 'HRK ' }}</td>
+                    <td class="txtRight">{{ thing.date | date:'HH:mm' }}</td>
+                    <td ng-show="superUser" class="txtRight">
+                        <input type="checkbox" name="paid" class="paid" ng-model="nomz[thing.$id].paid" />
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot ng-show="superUser">
+                <tr>
+                    <th class="txtRight" colspan="3">Total: {{ total | currency: 'HRK ' }}</th>
+                    <th></th>
+                    <th ng-show="superUser"></th>
+                </tr>
+            </tfoot>
+        </table>
 
 
+        <form name="form" class="main-edit-form" novalidate ng-submit="addNom(form)" ng-show="auth.user" id="addNom">
+            <p class="edit-title">Your order</p>
+            <p>
+                <input ng-model="name" name="name" placeholder="* your name" required />
+                <span class="error" ng-show="form.name.$error.required && (form.name.$dirty || nomSubmitted)">Required!</span>
+            </p>
+            <p>
+                <input ng-model="nom" name="nom" placeholder="* your nom" required />
+                <span class="error" ng-show="form.nom.$error.required && (form.nom.$dirty || nomSubmitted)">Required!</span>
+            </p>
+            <p>
+                <input type="number" name="price" ng-model="price" placeholder="* price" min="1" required />
+                <span class="error" ng-show="form.price.$error.required && (form.price.$dirty || nomSubmitted)">Required, number only!</span>
+            </p>
+            <button type="submit" class="save"><span class="fa fa-check"></span> Add</button>
+            <button type="button" class="cancel" ng-click="hideEditForm('addNom');"><span class="fa fa-remove"></span> Cancel</button>
+        </form>
 
+    </div>
 
-<form name="form" novalidate ng-submit="addNom(form)" ng-show="auth.user">
-    <p>
-        <input ng-model="name" name="name" placeholder="* your name" required />
-        <span class="error" ng-show="form.name.$error.required && (form.name.$dirty || nomSubmitted)">Required!</span>
-    </p>
-    <p>
-        <input ng-model="nom" name="nom" placeholder="* your nom" required />
-        <span class="error" ng-show="form.nom.$error.required && (form.nom.$dirty || nomSubmitted)">Required!</span>
-    </p>
-    <p>
-        <input type="number" name="price" ng-model="price" placeholder="* price" min="1" required /> kn
-        <span class="error" ng-show="form.price.$error.required && (form.price.$dirty || nomSubmitted)">Required, number only!</span>
-    </p>
-    <button type="submit">Add</button>
-</form>
+    <span class="napkin"></span>
+    <span class="pen"></span>
+    <span class="projects">Upiši <br /> projectse!</span>
+
+</div>

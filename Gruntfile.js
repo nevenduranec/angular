@@ -148,7 +148,7 @@ module.exports = function (grunt) {
     // Add vendor prefixed styles
     autoprefixer: {
       options: {
-        browsers: ['last 1 version']
+        browsers: ['last 3 versions']
       },
       dist: {
         files: [{
@@ -162,9 +162,6 @@ module.exports = function (grunt) {
 
     // Automatically inject Bower components into the app
     wiredep: {
-      options: {
-        cwd: '<%= yeoman.app %>'
-      },
       app: {
         src: ['<%= yeoman.app %>/index.html'],
         ignorePath:  /\.\.\//

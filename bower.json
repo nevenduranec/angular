@@ -17,7 +17,8 @@
     "angularfire": "~0.6.0",
     "firebase-simple-login": "~1.0.2",
     "observe-js": "~0.3.4",
-    "angular-xeditable": "~0.1.8"
+    "angular-xeditable": "~0.1.8",
+    "reset-css": "~2.0.20110126"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

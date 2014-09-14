@@ -1,6 +1,244 @@
 // bower:scss
 // endbower
 
+* { box-sizing: border-box; }
+
+$em-base: 16px;
+@import "mixins.scss";
+
+a {
+    color: #9e0000;
+    cursor: pointer;
+}
+
 html {
     font-family: 'Courgette', cursive;
+    font-size: 100%;
+    background-image: url('/images/desk.jpg');
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+body {
+    padding: 50px 0;
+}
+
+.napkin {
+    display: block;
+    position: absolute; top: 0; left: 0;
+    //width: 421px; height: 399px;
+    @include rem('width', 421); @include rem('height', 399);
+    background-image: url('/images/napkin.png'); background-size: cover;
+    transform: translateX(-110%) translateY(-35%);
+}
+
+.pen {
+    display: block;
+    position: absolute; top: 350px; left: 0;
+    @include rem('width', 164); @include rem('height', 638);
+    background-image: url('/images/pen.png'); background-size: cover;
+    transform: translateX(-100%) scale(0.9);
+}
+
+.projects {
+    display: block;
+    position: absolute; top: 50px; right: 0;
+    @include rem('width', 257); @include rem('height', 221);
+    background-image: url('/images/note.png'); background-size: cover;
+    @include rem('font-size', 40); padding: 60px 0 0 40px;
+    text-align: center;
+    transform: translateX(115%) rotate(-15deg) scale(0.9);
+}
+
+h1 {
+    text-align: center;
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+h2 {
+    position: relative;
+    @include rem('font-size', 70);
+    text-align: center;
+    margin: 30px 0;
+}
+
+.edit-title {
+    @include rem('font-size', 40);
+    @include rem('line-height', 45);
+    text-align: center;
+    margin: 40px 0;
+}
+
+.addRestaurant-btn {
+    @include rem('font-size', 30);
+    vertical-align: middle;
+    color: #1c6cbd;
+}
+
+.addNom-btn {
+    @include rem('font-size', 30);
+    color: #1c6cbd;
+    position: absolute; top: 50%; right: 0;
+    transform: translateY(-50%);
+}
+
+
+
+.wrapper {
+    margin: 0 50px;
+}
+
+.container {
+    position: relative;
+    max-width: 1087px;
+    margin: 0 auto;
+}
+
+.content {
+    background-image: url('/images/paper.png'); background-repeat: repeat-y;
+    padding: 20px 50px 50px 50px; margin-top: 50px;
+}
+
+p {
+    position: relative;
+}
+
+    .restaurants {
+        margin: 50px 0;
+        text-align: center;
+        li {
+            position: relative;
+            display: inline-block;
+            padding: 0 20px;
+            @include rem('font-size', 30);
+            @include rem('line-height', 70);
+
+            .fa {
+                transform: scale(0.5);
+            }
+        }
+    }
+
+    .action {
+        position: absolute; top: -15px; right: 0;
+        line-height: 1; @include rem('font-size', 40);
+        &.remove {
+            color: #f02d2d;
+        }
+        &.edit {
+            right: 20px;
+            color: #1c6cbd;
+        }
+    }
+
+    .main-edit-form {
+        position: fixed; top: 50%; left: 50%; z-index: 11;
+        @include rem('width', 600); padding: 0 30px 30px 30px;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-50%) scale(0);
+        background: #fff;
+        box-shadow: 0 0 350px rgba(0,0,0,0.9);
+
+        .editable-wrap {
+            position: relative;
+            display: block;
+            line-height: 1;
+        }
+
+        input {
+            border: 0;
+            background: #000; color: #fff;
+            padding: 15px; margin: 0;
+            width: 100%;
+            font-family: 'Courgette', cursive; @include rem('font-size', 30);
+            transition: all 0.3s ease-out;
+        }
+
+
+
+        button {
+            display: block; cursor: pointer;
+            width: 100%; border: 0; margin: 0;
+            font-family: 'Courgette', cursive; @include rem('font-size', 30); @include rem('line-height', 50); color: #fff;
+            &.save {
+                background-color: #28ab2e;
+            }
+            &.cancel {
+                background-color: #f02d2d;
+            }
+            transition: all 0.3s ease-out;
+        }
+
+        input:focus,
+        button:focus {
+            outline: none;
+            transform: scale(1.5);
+        }
+
+        .error {
+            display: block;
+            position: absolute; top: 10px; right: 10px;
+            color: red;
+        }
+
+    }
+
+
+    .orders {
+        width: 100%; margin: 50px 0;
+        @include rem('font-size', 20);
+        thead {
+            width: 100%;
+            border-style: double;
+            border-top-width: 3px;
+            border-bottom-width: 3px;
+            border-color: #000;
+            @include rem('font-size', 30);
+        }
+        tfoot {
+            border-style: double;
+            border-top-width: 3px;
+            border-bottom-width: 3px;
+            border-color: #000;
+            @include rem('font-size', 30);
+        }
+
+        tbody td {
+            border-bottom: 1px solid #000;
+        }
+
+        th {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .txtRight {
+            text-align: right;
+        }
+
+        td {
+            padding: 20px;
+        }
+
+        .action {
+            @include rem('font-size', 20);
+            top: -20px;
+        }
+
+        .nom {
+            text-transform: capitalize;
+            max-width: 200px;
+        }
+    }
+
+
+
+
+@media (max-width: 800px) {
+
 }
