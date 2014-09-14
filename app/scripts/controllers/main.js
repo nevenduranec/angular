@@ -75,7 +75,8 @@ angular
     $scope.updateNom = function(id){
         $timeout(function() {
             var now = Date.now();
-            $scope.nomz.$save(id, {name: $scope.nomz[id].name, nom: $scope.nomz[id].nom, price: $scope.nomz[id].price, date: now, userID: $rootScope.auth.user.id});
+            console.log($scope.nomz[id].paid);
+            $scope.nomz.$save(id, {name: $scope.nomz[id].name, nom: $scope.nomz[id].nom, price: $scope.nomz[id].price, date: now, userID: $rootScope.auth.user.id, paid: $scope.nomz[id].paid});
         }, 1000);
     };
 
