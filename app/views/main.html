@@ -1,6 +1,6 @@
 <div class="container">
 
-    <h1><img src="/images/logo.png" width="958" height="273" alt="web.burza NOMZ" /></h1>
+    <h1><img src="images/logo.png" width="958" height="273" alt="web.burza NOMZ" /></h1>
 
     <div class="content">
 
@@ -19,7 +19,7 @@
                     <a class="action remove" title="Remove this restaurant" ng-click="removeRestaurant(restaurant.$id)" ng-show="!restaurantRow.$visible"><span class="fa fa-times-circle"></span></a>
                     <a class="action edit" title="Edit this restaurant" ng-click="restaurantRow.$show();" ng-show="!restaurantRow.$visible"><span class="fa fa-pencil-square-o"></span></a>
 
-                    <form editable-form name="restaurantRow" class="main-edit-form" id="{{ restaurant.$id }}" onshow="showEditForm(restaurant.$id);" oncancel="hideEditForm(restaurant.$id);" onaftersave="hideEditForm(restaurant.$id);">
+                    <form editable-form name="restaurantRow" class="main-edit-form" id="{{ restaurant.$id }}" onshow="showEditForm(restaurant.$id);" oncancel="hideEditForm(restaurant.$id);" onaftersave="hideEditForm(restaurant.$id);" blur="cancel">
 
                         <p class="edit-title">Edit this restaurant</p>
 
@@ -80,7 +80,7 @@
                             <p><a class="action remove" ng-click="removeNom(thing.$id)" ng-show="!rowform.$visible"><span class="fa fa-times-circle"></span></a>
                             <a class="action edit" ng-click="rowform.$show()" ng-show="!rowform.$visible"><span class="fa fa-pencil-square-o"></span></a></p>
 
-                            <form editable-form name="rowform" class="main-edit-form" id="{{ thing.$id }}" onshow="showEditForm(thing.$id);" oncancel="hideEditForm(thing.$id);" onaftersave="hideEditForm(thing.$id);">
+                            <form editable-form name="rowform" class="main-edit-form" id="{{ thing.$id }}" onshow="showEditForm(thing.$id);" oncancel="hideEditForm(thing.$id);" onaftersave="hideEditForm(thing.$id);" blur="cancel">
 
                                 <p class="edit-title">Edit your order</p>
 
@@ -102,7 +102,7 @@
                     <td class="txtRight">{{ thing.price| currency: 'HRK ' }}</td>
                     <td class="txtRight">{{ thing.date | date:'HH:mm' }}</td>
                     <td ng-show="superUser" class="txtRight">
-                        <label for="{{ thing.$id }}"><input type="checkbox" id="{{ thing.$id }}" ng-checked="thing.paid == 1" ng-click="nomz[thing.$id].paid = !nomz[thing.$id].paid" /></label>
+                        <label for="{{ thing.$id }}"><input type="checkbox" ng-checked="thing.paid == 1" ng-click="nomz[thing.$id].paid = !nomz[thing.$id].paid" /></label>
                     </td>
                 </tr>
             </tbody>

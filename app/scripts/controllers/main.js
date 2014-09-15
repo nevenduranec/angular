@@ -149,8 +149,7 @@ angular
         if(e.which === 27){
             var visible = document.querySelector('form.is-visible');
             if(visible){
-                var elem = visible.getAttribute('id');
-                $scope.hideEditForm(elem);
+                visible.querySelector('.cancel').click();
             }
         }
     });

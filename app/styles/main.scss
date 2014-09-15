@@ -14,11 +14,12 @@ a {
 html {
     font-family: 'Courgette', cursive;
     font-size: 100%;
-    background-image: url('/images/desk.jpg');
+    background-image: url('../images/desk.jpg');
 }
 
 html, body {
     overflow-x: hidden;
+    height: 100%;
 }
 
 body {
@@ -30,7 +31,7 @@ body {
     position: absolute; top: 0; left: 0;
     //width: 421px; height: 399px;
     @include rem('width', 421); @include rem('height', 399);
-    background-image: url('/images/napkin.png'); background-size: cover;
+    background-image: url('../images/napkin.png'); background-size: cover;
     transform: translateX(-110%) translateY(-35%);
 }
 
@@ -38,7 +39,7 @@ body {
     display: block;
     position: absolute; top: 350px; left: 0;
     @include rem('width', 164); @include rem('height', 638);
-    background-image: url('/images/pen.png'); background-size: cover;
+    background-image: url('../images/pen.png'); background-size: cover;
     transform: translateX(-100%) scale(0.9);
 }
 
@@ -46,7 +47,7 @@ body {
     display: block;
     position: absolute; top: 50px; right: 0;
     @include rem('width', 257); @include rem('height', 221);
-    background-image: url('/images/note.png'); background-size: cover;
+    background-image: url('../images/note.png'); background-size: cover;
     @include rem('font-size', 40); padding: 60px 0 0 40px;
     text-align: center;
     transform: translateX(115%) rotate(-15deg) scale(0.9);
@@ -100,7 +101,7 @@ h2 {
 }
 
 .content {
-    background-image: url('/images/paper.png'); background-repeat: repeat-y;
+    background-image: url('../images/paper.png'); background-repeat: repeat-y;
     padding: 20px 50px 50px 50px; margin-top: 50px;
 }
 
