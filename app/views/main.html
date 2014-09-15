@@ -62,6 +62,8 @@
 
         <h2>Orders <a ng-show="auth.user" ng-click="showEditForm('addNom');" class="addNom-btn"><span class="fa fa-plus-circle"></span> Order now!</a></h2>
 
+        <h3 ng-if="!nomzLength">Nobody's hungry huh?</h2>
+        <p class="dummy-food"><img src="http://lorempixel.com/640/480/food/" /></p>
 
         <table ng-if="nomzLength" class="orders">
             <thead>

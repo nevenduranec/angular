@@ -68,6 +68,21 @@ h2 {
     margin: 30px 0;
 }
 
+h3 {
+    position: relative;
+    @include rem('font-size', 40);
+    text-align: center;
+    margin: 50px 0;
+}
+
+.dummy-food {
+    text-align: center;
+    img {
+        border: #fff 5px solid;
+//        transform: rotate(5deg);
+    }
+}
+
 .edit-title {
     @include rem('font-size', 40);
     @include rem('line-height', 45);
