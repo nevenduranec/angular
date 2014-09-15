@@ -40,7 +40,7 @@ angular
         $scope.nomSubmitted = true;
         if(form.$valid){
             var now = Date.now();
-            $scope.nomz.$add({name: $scope.name, nom: $scope.nom, price: $scope.price, date: now, userID: $rootScope.auth.user.id, paid: 0});
+            $scope.nomz.$add({name: $scope.name, nom: $scope.nom, price: $scope.price, date: now, userID: $rootScope.auth.user.id, paid: false});
             $scope.name = '';
             $scope.nom = '';
             $scope.price = '';
@@ -75,16 +75,15 @@ angular
     $scope.updateNom = function(id){
         $timeout(function() {
             var now = Date.now();
-            console.log($scope.nomz[id].paid);
             $scope.nomz.$save(id, {name: $scope.nomz[id].name, nom: $scope.nomz[id].nom, price: $scope.nomz[id].price, date: now, userID: $rootScope.auth.user.id, paid: $scope.nomz[id].paid});
-        }, 1000);
+        }, 500);
     };
 
     $scope.updateRestaurant = function(id){
         $timeout(function() {
             var now = Date.now();
             $scope.restaurants.$save(id, {name: $scope.restaurants[id].restaurantName, url: $scope.restaurants[id].restaurantURL, date: now});
-        }, 1000);
+        }, 500);
     };
 
     $scope.$watch('nomz', function () {
@@ -153,6 +152,32 @@ angular
             }
         }
     });
+
+
+
+
+    if (window.annyang) { // So much fun :D
+        window.annyang.setLanguage('hr-HR');
+        // Let's define our first command. First the text we expect, and then the function it should call
+        var commands = {
+            'gladan sam': function() {
+                $scope.showEditForm('addNom');
+            },
+            'gladna sam': function() {
+                $scope.showEditForm('addNom');
+            },
+            'naruči': function(){
+                console.log(window.skope.form);
+                document.querySelector('#addNom').querySelector('.save').click();
+            }
+        };
+
+        // Add our commands to annyang
+        window.annyang.addCommands(commands);
+
+        // Start listening. You can call this here, or attach this call to an event, button, etc.
+        window.annyang.start();
+    }
 
 
 
