@@ -13,7 +13,7 @@ angular
 
     window.skope = $scope;
 
-    $scope.superUser = $location.$$search.direktornabave;
+    $scope.superUser = false;
 
     var date = new Date(),
         today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
@@ -143,22 +143,31 @@ angular
     };
 
 
-
     $document.bind('keydown', function(e) {
+
         if(e.which === 27){
             var visible = document.querySelector('form.is-visible');
             if(visible){
                 visible.querySelector('.cancel').click();
             }
         }
+
     });
 
 
 
+    window.cheet('a d m i n enter', function () {
+        window.cheet.disable('a d m i n enter');
+        $scope.superUser = true;
+        $scope.$apply();
+    });
+
+
 
     if (window.annyang) { // So much fun :D
+
         window.annyang.setLanguage('hr-HR');
-        // Let's define our first command. First the text we expect, and then the function it should call
+
         var commands = {
             'gladan sam': function() {
                 $scope.showEditForm('addNom');
@@ -167,15 +176,11 @@ angular
                 $scope.showEditForm('addNom');
             },
             'naruči': function(){
-                console.log(window.skope.form);
                 document.querySelector('#addNom').querySelector('.save').click();
             }
         };
 
-        // Add our commands to annyang
         window.annyang.addCommands(commands);
-
-        // Start listening. You can call this here, or attach this call to an event, button, etc.
         window.annyang.start();
     }
 
