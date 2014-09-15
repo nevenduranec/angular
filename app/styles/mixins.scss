@@ -8,51 +8,6 @@ $prefix-for-spec:      true;
   @return ($val / ($val * 0 + 1));
 }
 
-//************************************************************************//
-// Example: @include prefixer(border-radius, $radii, webkit ms spec);
-//************************************************************************//
-// Variables located in /settings/_prefixer.scss
-
-@mixin prefixer ($property, $value, $prefixes) {
-  @each $prefix in $prefixes {
-    @if $prefix == webkit {
-      @if $prefix-for-webkit {
-        -webkit-#{$property}: $value;
-      }
-    }
-    @else if $prefix == moz {
-      @if $prefix-for-mozilla {
-        -moz-#{$property}: $value;
-      }
-    }
-    @else if $prefix == ms {
-      @if $prefix-for-microsoft {
-        -ms-#{$property}: $value;
-      }
-    }
-    @else if $prefix == o {
-      @if $prefix-for-opera {
-        -o-#{$property}: $value;
-      }
-    }
-    @else if $prefix == spec {
-      @if $prefix-for-spec {
-        #{$property}: $value;
-      }
-    }
-    @else  {
-      @warn "Unrecognized prefix: #{$prefix}";
-    }
-  }
-}
-
-@mixin disable-prefix-for-all() {
-  $prefix-for-webkit:    false !global;
-  $prefix-for-mozilla:   false !global;
-  $prefix-for-microsoft: false !global;
-  $prefix-for-opera:     false !global;
-  $prefix-for-spec:      false !global;
-}
 
 @mixin rem($property, $size, $base: $em-base) {
   @if not unitless($base) {
@@ -158,42 +113,6 @@ $prefix-for-spec:      true;
 @mixin animation-fill-mode ($modes...) {
 // none | forwards | backwards | both
   @include prefixer(animation-fill-mode, $modes, webkit moz spec);
-}
-
-
-@mixin keyframes($name) {
-  $original-prefix-for-webkit:    $prefix-for-webkit;
-  $original-prefix-for-mozilla:   $prefix-for-mozilla;
-  $original-prefix-for-microsoft: $prefix-for-microsoft;
-  $original-prefix-for-opera:     $prefix-for-opera;
-  $original-prefix-for-spec:      $prefix-for-spec;
-
-  @if $original-prefix-for-webkit {
-    @include disable-prefix-for-all();
-    $prefix-for-webkit: true !global;
-    @-webkit-keyframes #{$name} {
-      @content;
-    }
-  }
-  @if $original-prefix-for-mozilla {
-    @include disable-prefix-for-all();
-    $prefix-for-mozilla: true !global;
-    @-moz-keyframes #{$name} {
-      @content;
-    }
-  }
-
-  $prefix-for-webkit:    $original-prefix-for-webkit    !global;
-  $prefix-for-mozilla:   $original-prefix-for-mozilla   !global;
-  $prefix-for-microsoft: $original-prefix-for-microsoft !global;
-  $prefix-for-opera:     $original-prefix-for-opera     !global;
-  $prefix-for-spec:      $original-prefix-for-spec      !global;
-
-  @if $original-prefix-for-spec {
-    @keyframes #{$name} {
-      @content;
-    }
-  }
 }
 
 
