@@ -9,7 +9,7 @@
         <ul ng-if="restaurantsLength" class="restaurants">
             <li ng-repeat="restaurant in restaurants | orderByPriority | orderBy:'-date'">
 
-                <span class="fa fa-circle"></span>
+                <span class="dot fa fa-circle"></span>
                 <span ng-if="restaurant.url"><a href="{{ restaurant.url }}">{{ restaurant.name }}</a></span>
                 <span ng-if="restaurant.name && !restaurant.url">{{ restaurant.name }}</span>
 
@@ -63,7 +63,7 @@
         <h2>Orders <a ng-show="auth.user" ng-click="showEditForm('addNom');" class="addNom-btn"><span class="fa fa-plus-circle"></span> Order now!</a></h2>
 
         <h3 ng-if="!nomzLength">Nobody's hungry huh?</h2>
-        <p class="dummy-food"><img src="http://lorempixel.com/640/480/food/" /></p>
+        <p ng-if="!nomzLength" class="dummy-food"><img src="http://lorempixel.com/640/480/food/" /></p>
 
         <table ng-if="nomzLength" class="orders">
             <thead>

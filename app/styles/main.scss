@@ -134,7 +134,7 @@ p {
             @include rem('font-size', 30);
             @include rem('line-height', 70);
 
-            .fa {
+            .action, .dot {
                 transform: scale(0.5);
             }
         }
