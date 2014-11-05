@@ -108,7 +108,7 @@
 
                         </div>
                     </td>
-                    <td class="nom">{{ thing.nom | lowercase }}</td>
+                    <td class="nom">{{ thing.nom | lowercase }} <a class="plusOne" ng-click="showEditForm('addNom', thing.$id);"><span class="fa fa-plus-circle"></span> 1</a></td>
                     <td class="txtRight">{{ thing.price| currency: 'HRK ' }}</td>
                     <td class="txtRight">{{ thing.date | date:'HH:mm' }}</td>
                     <td ng-show="superUser" class="txtRight paidLabel">

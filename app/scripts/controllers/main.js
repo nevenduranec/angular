@@ -18,10 +18,12 @@ angular
     var date = new Date(),
         today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 
-    //today = '6-8-2019';
+    //today = '1-1-1111';
 
     $scope.restaurants = syncData(today + '/restaurants/');
     $scope.nomz = syncData(today + '/people/');
+
+    simpleLogin.init();
 
     waitForAuth.then(function() {
         if (!$rootScope.auth.user) {
@@ -107,10 +109,16 @@ angular
     }, true);
 
 
-    $scope.showEditForm = function(elem){
+    $scope.showEditForm = function(elem, id){
+
+        if (id) {
+            $scope.nom = $scope.nomz[id].nom;
+            $scope.price = $scope.nomz[id].price;
+        }
 
         elem = '#' + elem;
         document.querySelector(elem).classList.add('is-visible');
+
         var tl = new window.TimelineLite();
         tl.to(elem, 0.2, {scale: 1.3, opacity: 1});
         tl.to(elem, 0.2, {scale: 1});
@@ -118,6 +126,8 @@ angular
         if(elem === '#addRestaurant' || elem === '#addNom'){
             document.querySelector(elem).querySelector('input').focus();
         }
+
+
 
     };
 
